@@ -7,6 +7,9 @@
 
 obj-y	:= board.o
 
+#Added by github.com/nyari using MYIR code for MYS-XC7Z010
+obj-y	+= myir_init.o
+
 hw-platform-y :=$(shell echo $(CONFIG_DEFAULT_DEVICE_TREE))
 
 init-objs := $(if $(wildcard $(srctree)/$(src)/$(hw-platform-y)/ps7_init_gpl.c),\
