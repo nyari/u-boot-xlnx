@@ -32,6 +32,9 @@ Xilinx_desc fpga045 = XILINX_XC7Z045_DESC(0x45);
 Xilinx_desc fpga100 = XILINX_XC7Z100_DESC(0x100);
 #endif
 
+/* Added by MYIR for MYS-XC7Z010 */
+extern int myir_board_init(void);
+
 int board_init(void)
 {
 #ifdef CONFIG_FPGA
@@ -67,6 +70,9 @@ int board_init(void)
 	fpga_init();
 	fpga_add(fpga_xilinx, &fpga);
 #endif
+
+	/* Added by MYIR for MYS-XC7Z010 */
+	myir_board_init();
 	return 0;
 }
 

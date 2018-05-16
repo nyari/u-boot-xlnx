@@ -11,6 +11,9 @@ LIB	= $(obj)lib$(BOARD).o
 
 COBJS-y	:= board.o
 
+# Added by MYIR for MYS-XC7Z010
+COBJS-y	+= myir_init.o
+
 COBJS	:= $(sort $(COBJS-y))
 
 SRCS	:= $(COBJS:.o=.c)

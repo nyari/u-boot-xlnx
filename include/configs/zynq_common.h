@@ -13,8 +13,12 @@
 #define CONFIG_ZYNQ /* SoC */
 
 /* Default environment */
-#define CONFIG_IPADDR	10.10.70.102
-#define CONFIG_SERVERIP	10.10.70.101
+#ifndef CONFIG_IPADDR	/* Added by MYIR */
+	#define CONFIG_IPADDR	10.10.70.102
+#endif
+#ifndef CONFIG_SERVERIP /* Added by MYIR */
+	#define CONFIG_SERVERIP	10.10.70.101
+#endif
 
 #define CONFIG_SYS_SDRAM_BASE	0
 #define CONFIG_SYS_SDRAM_SIZE	PHYS_SDRAM_1_SIZE
@@ -29,7 +33,9 @@
 #endif
 
 /* Total Size of Environment Sector */
+#ifndef CONFIG_ENV_SIZE
 #define CONFIG_ENV_SIZE			(128 << 10)
+#endif
 
 /* allow to overwrite serial and ethaddr */
 #define CONFIG_ENV_OVERWRITE
@@ -194,7 +200,10 @@
 #  define CONFIG_ENV_IS_NOWHERE
 # endif
 
+#ifndef CONFIG_ENV_SECT_SIZE
 # define CONFIG_ENV_SECT_SIZE		CONFIG_ENV_SIZE
+#endif
+
 # ifndef CONFIG_ENV_OFFSET
 #  define CONFIG_ENV_OFFSET		0xE0000
 # endif
@@ -208,6 +217,8 @@
 #endif
 
 /* Default environment */
+/* Added by MYIR */
+#ifndef CONFIG_EXTRA_ENV_SETTINGS
 #define CONFIG_EXTRA_ENV_SETTINGS	\
 	"ethaddr=00:0a:35:00:01:22\0"	\
 	"kernel_image=uImage\0"	\
@@ -293,6 +304,7 @@
 		"tftp 0x100000 ${boot_image} && " \
 		"zynqrsa 0x100000 && " \
 		"bootm 0x3000000 0x2000000 0x2A00000\0"
+#endif /* ifndef CONFIG_EXTRA_ENV_SETTINGS, MYIR */
 
 /* default boot is according to the bootmode switch settings */
 #if defined(CONFIG_CMD_ZYNQ_RSA)
@@ -302,6 +314,8 @@
 #endif
 #define CONFIG_BOOTDELAY		3 /* -1 to Disable autoboot */
 #define CONFIG_SYS_LOAD_ADDR		0 /* default? */
+#define	CONFIG_ZERO_BOOTDELAY_CHECK	1
+
 
 #define CONFIG_CMD_CACHE
 
