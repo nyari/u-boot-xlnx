@@ -15,23 +15,21 @@
 
 DECLARE_GLOBAL_DATA_PTR;
 
-/* Bootmode setting values */
-#define BOOT_MODES_MASK		0x0000000F
-#define QSPI_MODE		0x00000001
-#define NOR_FLASH_MODE		0x00000002
-#define NAND_FLASH_MODE		0x00000004
-#define SD_MODE			0x00000005
-#define JTAG_MODE		0x00000000
-
-#ifdef CONFIG_FPGA
-Xilinx_desc fpga;
+#if (defined(CONFIG_FPGA) && !defined(CONFIG_SPL_BUILD)) || \
+    (defined(CONFIG_SPL_FPGA_SUPPORT) && defined(CONFIG_SPL_BUILD))
+static xilinx_desc fpga;
 
 /* It can be done differently */
-Xilinx_desc fpga010 = XILINX_XC7Z010_DESC(0x10);
-Xilinx_desc fpga020 = XILINX_XC7Z020_DESC(0x20);
-Xilinx_desc fpga030 = XILINX_XC7Z030_DESC(0x30);
-Xilinx_desc fpga045 = XILINX_XC7Z045_DESC(0x45);
-Xilinx_desc fpga100 = XILINX_XC7Z100_DESC(0x100);
+static xilinx_desc fpga007s = XILINX_XC7Z007S_DESC(0x7);
+static xilinx_desc fpga010 = XILINX_XC7Z010_DESC(0x10);
+static xilinx_desc fpga012s = XILINX_XC7Z012S_DESC(0x12);
+static xilinx_desc fpga014s = XILINX_XC7Z014S_DESC(0x14);
+static xilinx_desc fpga015 = XILINX_XC7Z015_DESC(0x15);
+static xilinx_desc fpga020 = XILINX_XC7Z020_DESC(0x20);
+static xilinx_desc fpga030 = XILINX_XC7Z030_DESC(0x30);
+static xilinx_desc fpga035 = XILINX_XC7Z035_DESC(0x35);
+static xilinx_desc fpga045 = XILINX_XC7Z045_DESC(0x45);
+static xilinx_desc fpga100 = XILINX_XC7Z100_DESC(0x100);
 #endif
 
 /* Added by MYIR for MYS-XC7Z010 */
@@ -69,6 +67,9 @@ int board_init(void)
 		break;
 	case XILINX_ZYNQ_7030:
 		fpga = fpga030;
+		break;
+	case XILINX_ZYNQ_7035:
+		fpga = fpga035;
 		break;
 	case XILINX_ZYNQ_7045:
 		fpga = fpga045;
@@ -173,3 +174,4 @@ int dram_init(void)
 
 	return 0;
 }
+#endif
